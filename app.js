@@ -1,26 +1,11 @@
+const express = require('express')
+const app = express()
+const port = process.env.port || 2266
 
-const express = require('express');
-const request = require('request');
+app.get('/', (req, res) => {
+  res.send('Hello Sailor, have a maritime day, - you illiterate s.o.b.!')
+})
 
-const app = express();
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
-
-app.get('/jokes/random', (req, res) => {
-  request(
-    { url: 'https://joke-api-strict-cors.appspot.com/jokes/random' },
-    (error, response, body) => {
-      if (error || response.statusCode !== 200) {
-        return res.status(500).json({ type: 'error', message: err.message });
-      }
-
-      res.json(JSON.parse(body));
-    }
-  )
-});
-
-const PORT = process.env.PORT || 2266;
-app.listen(PORT, () => console.log(`listening on ${PORT}`));
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
